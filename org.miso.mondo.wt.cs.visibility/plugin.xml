@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.mondo.generate.visibility.project.visibility_definition">
+      <client
+            class="org.miso.mondo.wt.cs.visibility.definition.VisibilityEClassConfiguration"></client>
+   </extension>
+
+</plugin>

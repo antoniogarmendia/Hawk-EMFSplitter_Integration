@@ -1,0 +1,253 @@
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+	  <!-- PROJECT CATEGORY -->
+      <category
+            id="org.miso.mondo.wt.cs.projectWTComponents"
+            name="WTComponents">
+      </category>
+	  <!-- PACKAGE CATEGORY -->	
+	<category
+            id="org.miso.mondo.wt.cs.projectWTComponents.Packages"
+            name="WTComponents Folders"
+			parentCategory="org.miso.mondo.wt.cs.projectWTComponents">
+      </category> 
+	  <!-- FILE CATEGORY -->
+	  <category
+            id="org.miso.mondo.wt.cs.projectWTComponents.Files"
+            name="WTComponents Files"
+			parentCategory="org.miso.mondo.wt.cs.projectWTComponents">
+      </category>	  
+     <wizard
+            category="org.miso.mondo.wt.cs.projectWTComponents"
+            class="org.miso.mondo.wt.cs.modular.wizard.WTComponentsNewProjectWizard"
+            id="org.miso.mondo.wt.cs.wtcomponents.WTComponentsNewProject"
+            name="WTComponents Project"
+            project="true"
+			icon="icons/Project.png">
+      </wizard>
+	<!--WIZARD PACKAGE CATEGORY -->
+	 <wizard
+			category="org.miso.mondo.wt.cs.projectWTComponents/org.miso.mondo.wt.cs.projectWTComponents.Packages"
+			icon="icons/Subsystem.png"
+			class="org.miso.mondo.wt.cs.modular.wizard.folder.SubsystemCreateFolderWizard"
+			name="Subsystem Folder"
+			id="org.miso.mondo.wt.cs.subsystem.subsystemNewPackage"
+			project="false"
+	 		>	
+	 </wizard>
+	 <wizard
+			category="org.miso.mondo.wt.cs.projectWTComponents/org.miso.mondo.wt.cs.projectWTComponents.Packages"
+			icon="icons/ControlSubsystem.png"
+			class="org.miso.mondo.wt.cs.modular.wizard.folder.ControlSubsystemCreateFolderWizard"
+			name="ControlSubsystem Folder"
+			id="org.miso.mondo.wt.cs.controlsubsystem.controlsubsystemNewPackage"
+			project="false"
+	 		>	
+	 </wizard>
+	<!--WIZARD FILE CATEGORY -->
+	
+	  <wizard
+			category="org.miso.mondo.wt.cs.projectWTComponents/org.miso.mondo.wt.cs.projectWTComponents.Files"
+			icon="icons/Architecture.png"
+			class="org.miso.mondo.wt.cs.modular.wizard.file.ArchitectureCreateFileWizard"
+			name="Architecture File"
+			id="org.miso.mondo.wt.cs.architecture.architectureNewFile"
+			project="false"
+	 		>	
+	 </wizard>		
+	  <wizard
+			category="org.miso.mondo.wt.cs.projectWTComponents/org.miso.mondo.wt.cs.projectWTComponents.Files"
+			icon="icons/StateMachine.png"
+			class="org.miso.mondo.wt.cs.modular.wizard.file.StateMachineCreateFileWizard"
+			name="StateMachine File"
+			id="org.miso.mondo.wt.cs.statemachine.statemachineNewFile"
+			project="false"
+	 		>	
+	 </wizard>		
+   </extension>
+   <!--MULTI-PAGE EDITOR PAGE EXTENSION-->  
+	<extension
+         point="org.eclipse.ui.editors">
+	
+
+	
+	<editor
+		name = "Arq  Model Editor"
+		extensions = "arq"
+		icon = "icons/Architecture.png"
+		contributorClass="org.miso.mondo.wt.cs.modular.editors.MultiPageEditorContributor"
+		class = "org.miso.mondo.wt.cs.modular.editors.MultiPageEditor"
+		id="org.miso.mondo.wt.cs.projectwtcomponents.editors.FigureEditorArq"
+		default="true">
+	</editor>
+	<editor
+		name = "State  Model Editor"
+		extensions = "state"
+		icon = "icons/StateMachine.png"
+		contributorClass="org.miso.mondo.wt.cs.modular.editors.MultiPageEditorContributor"
+		class = "org.miso.mondo.wt.cs.modular.editors.MultiPageEditor"
+		id="org.miso.mondo.wt.cs.projectwtcomponents.editors.FigureEditorState"
+		default="true">
+	</editor>
+	</extension>
+	<!--XMI FILE EXTENSION PARSER-->
+	<extension
+       point="org.eclipse.emf.ecore.extension_parser">
+	<parser
+          class="org.miso.mondo.wt.cs.modular.resource.XMIModularResourceFactory"
+          type="arq">
+    </parser>
+	<parser
+          class="org.miso.mondo.wt.cs.modular.resource.XMIModularResourceFactory"
+          type="state">
+    </parser>
+	</extension>
+	<!--PROJECT MODULAR NATURE-->
+   <extension
+         id="ModularNature"
+         name="Modular Nature"
+         point="org.eclipse.core.resources.natures">
+         <runtime>
+        	 <run class="org.miso.mondo.wt.cs.modular.wizard.WTComponentsNewProjectNature">
+         </run>
+      </runtime>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+         <image
+            icon="icons/Project.png"
+            id="org.miso.mondo.wt.cswtcomponents.image.Folder"
+            natureId="org.miso.mondo.wt.cs.modular.ModularNature">
+      </image>
+   </extension> 
+   <!-- PROJECT DECORATOR -->
+	<extension
+         point="org.eclipse.ui.decorators">
+      <decorator 
+       	adaptable="true"
+            icon="icons/Project.png"
+            id="resources.folder.decorator"
+            label="Folder Resource Decorator"
+            lightweight="true"
+            location="REPLACE"
+            state="true"
+            objectClass="org.eclipse.core.resources.IResource"
+            class="org.miso.mondo.wt.cs.modular.decorator.ModularProjectDecorator">
+      </decorator>
+   </extension> 
+    <!-- PROPERTIES VIEW-->
+   <extension
+		point = "org.eclipse.jdt.ui.javaElementFilters" >
+		<filter
+            class="org.miso.mondo.wt.cs.modular.Package_Explorer_Selection"
+            description="Package_Explorer_Selection"
+            enabled="true"
+            id="org.miso.mondo.wt.cs.filter"
+            name="Selection_Package"
+            targetId="org.eclipse.jdt.ui.PackageExplorer">
+      </filter>
+   </extension>
+	<!-- POPUPMENUS FOR THE PROJECT-->
+	 <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=group.new">
+         <menu
+               id="org.miso.mondo.wt.cs.wtcomponents.Menu"
+               label="WTComponents"
+               mnemonic="L">
+            <command
+                  commandId="org.miso.mondo.wt.cs.modular.command.gendiag"
+                  id="org.miso.mondo.wt.cs.modular.gendiag"
+                  label="Generate Model"
+                  mnemonic="L"
+                  style="push">
+            </command>
+            <visibleWhen
+                  checkEnabled="true">
+            	 <with
+                     variable="activeMenuSelection">
+                  <iterate
+                        operator="and">
+                     <test
+                           property="org.eclipse.core.resources.projectNature"
+                           value="org.miso.mondo.wt.cs.modular.ModularNature">
+                     </test>
+                  </iterate>
+                  <count
+                        value="1">
+                  </count>
+               </with>
+            </visibleWhen>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="true"
+            class="org.miso.mondo.wt.cs.modular.CreateMenu"
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer?after=group.new">
+         <menu
+               id="New"
+               label="New WTComponents"
+               mnemonic="L">
+            <visibleWhen
+                  checkEnabled="true">
+               <with
+                     variable="activeMenuSelection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        operator="and">
+                     <test
+                           property="org.eclipse.core.resources.projectNature"
+                           value="org.miso.mondo.wt.cs.modular.ModularNature">
+                     </test>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </menu>        
+      </menuContribution>
+   </extension>	
+	<!-- COMMANDS-->
+	 <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.miso.mondo.wt.cs.modular.command.gendiag"
+            name="Generate Model">
+      </command>     
+   </extension>
+   <!-- HANDLERS-->
+	<extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.miso.mondo.wt.cs.modular.actions.Generate_Diagram"
+            commandId="org.miso.mondo.wt.cs.modular.command.gendiag">
+      </handler>     
+   </extension>
+   <!-- MODEL CROSS REFERENCES -->
+    <extension
+       point="org.model.references.definition.ext">
+    <client
+          Id="WTComponentsModularCrossReferences"
+          class="org.miso.mondo.wt.cs.modular.editors.WTComponentsModularCrossReferences">
+    </client>
+   </extension>
+   <!-- MODEL PAGE  PREFERENCES -->
+    <extension
+       point="org.eclipse.ui.preferencePages">
+    <page
+          class="org.miso.mondo.wt.cs.modular.preferences.WTComponentsPreferencePage"
+          id="org.miso.mondo.wt.cs.modular.preferences.WTComponentsPreferencePage"
+          name="WTComponents Preferences">
+    </page>
+ </extension>
+ <!-- MODEL PAGE  PREFERENCES INITIALIZER-->
+ <extension
+       point="org.eclipse.core.runtime.preferences">
+    <initializer
+          class="org.miso.mondo.wt.cs.modular.preferences.WTComponentsPreferenceInitializer">
+    </initializer>
+ </extension>	
+</plugin> 	
